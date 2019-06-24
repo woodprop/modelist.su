@@ -1,6 +1,12 @@
 from django.shortcuts import render
+from .models import Post
 
 
-def index(request):
-    return render(request, 'blog/articles_list.html', context={'title': 'Главная', 'articles': ['Статья 1', 'Статья 2',
-                                                                                                'Статья 3']})
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/post_list.html', context={'title': 'Последние записи', 'posts': posts})
+
+
+def post_detail(request, slug):
+    post = Post.objects.get(slug__iexact=slug)
+    return render(request, 'blog/post_detail.html', context={'post': post})
