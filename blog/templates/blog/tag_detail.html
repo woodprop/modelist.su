@@ -1,0 +1,15 @@
+{% extends 'blog/blog_main.html' %}
+
+{% block title %}
+    {{ block.super }} - Тэг {{ tag.title }}
+{% endblock %}
+
+
+{% block content %}
+    <h3>Список публикаций с тэгом {{ tag.title }}:</h3>
+
+    {% for post in tag.posts.all %}
+        {% include 'blog/includes/post_card_template.html' %}
+    {% endfor %}
+
+{% endblock %}
