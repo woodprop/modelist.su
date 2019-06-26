@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from .models import Post, Tag
-from .forms import TagForm
+from .forms import PostForm, TagForm
 
 
 def post_list(request):
@@ -13,12 +13,21 @@ def post_list(request):
 
 class PostDetail(View):
     def get(self, request, slug):
-        # post = Post.objects.get(slug__iexact=slug)
         post = get_object_or_404(Post, slug__iexact=slug)
         return render(request, 'blog/post_detail.html', context={'post': post})
-# def post_detail(request, slug):
-#     post = Post.objects.get(slug__iexact=slug)
-#     return render(request, 'blog/post_detail.html', context={'post': post})
+
+
+class PostCreate(View):
+    def get(self, request):
+        form = PostForm
+        return render(request, 'blog/post_form.html', context={'form': form})
+
+    def post(self, request):
+        bound_form = PostForm(request.POST)
+        if bound_form.is_valid():
+            new_post = bound_form.save()
+            return redirect(new_post)
+        return render(request, 'blog/post_form.html', context={'form': bound_form})
 
 
 def tag_list(request):
@@ -28,17 +37,14 @@ def tag_list(request):
 
 class TagDetail(View):
     def get(self, request, slug):
-        # tag = Tag.objects.get(slug__iexact=slug)
         tag = get_object_or_404(Tag, slug__iexact=slug)
         return render(request, 'blog/tag_detail.html', context={'tag': tag})
-# def tag_detail(request, slug):
-#     tag = Tag.objects.get(slug__iexact=slug)
-#     return render(request, 'blog/tag_detail.html', context={'tag': tag})
+
 
 
 class TagCreate(View):
     def get(self, request):
-        form = TagForm()
+        form = TagForm
         return render(request, 'blog/tag_form.html', context={'form': form})
 
     def post(self, request):
