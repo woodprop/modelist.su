@@ -41,7 +41,6 @@ class TagDetail(View):
         return render(request, 'blog/tag_detail.html', context={'tag': tag})
 
 
-
 class TagCreate(View):
     def get(self, request):
         form = TagForm
@@ -54,3 +53,11 @@ class TagCreate(View):
             new_tag = bound_form.save()
             return redirect(new_tag)
         return render(request, 'blog/tag_form.html', context={'form': bound_form})
+
+
+class TagEdit(View):
+    def get(self, request, slug):
+        tag = Tag.objects.get(slug__iexact=slug)
+        bound_form = TagForm(instance=tag)
+        return render(request, 'blog/tag_edit_form.html', context={'form': bound_form,
+                                                                   'tag': tag})
