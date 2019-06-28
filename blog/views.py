@@ -61,3 +61,12 @@ class TagEdit(View):
         bound_form = TagForm(instance=tag)
         return render(request, 'blog/tag_edit_form.html', context={'form': bound_form,
                                                                    'tag': tag})
+
+    def post(self, request, slug):
+        tag = Tag.objects.get(slug__iexact=slug)
+        bound_form = TagForm(request.POST, instance=tag)
+
+        if bound_form.is_valid():
+            updated_tag = bound_form.save()
+            return redirect(updated_tag)
+        return render(request, 'blog/tag_edit_form.html', context={'form': bound_form, 'tag': tag})
