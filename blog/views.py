@@ -31,6 +31,39 @@ class PostCreate(View):
         return render(request, 'blog/post_form.html', context={'form': bound_form})
 
 
+class PostEdit(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug__iexact=slug)
+        bound_form = PostForm(instance=post)
+        return render(request, 'blog/post_edit_form.html', context={'form': bound_form,
+                                                                    'post': post})
+
+    def post(self, request, slug):
+        post = Post.objects.get(slug__iexact=slug)
+        bound_form = PostForm(request.POST, instance=post)
+
+        if bound_form.is_valid():
+            updated_post = bound_form.save()
+            return redirect(updated_post)
+
+        return render(request, 'blog/post_edit_form.html', context={'form': bound_form,
+                                                                    'post': post})
+
+
+class PostDelete(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug__iexact=slug)
+        return render(request, 'blog/post_delete_form.html', context={'post': post})
+
+    def post(self, request, slug):
+        post = Post.objects.get(slug__iexact=slug)
+        post.delete()
+        return redirect(reverse('post_list_url'))
+
+
+    # TODO post/tag edit/delete url generation
+
+
 def tag_list(request):
     tags = Tag.objects.all()
     return render(request, 'blog/tag_list.html', context={'tags': tags})
