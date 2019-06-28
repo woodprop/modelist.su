@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views.generic import View
 from .models import Post, Tag
 from .forms import PostForm, TagForm
@@ -70,3 +71,14 @@ class TagEdit(View):
             updated_tag = bound_form.save()
             return redirect(updated_tag)
         return render(request, 'blog/tag_edit_form.html', context={'form': bound_form, 'tag': tag})
+
+
+class TagDelete(View):
+    def get(self, request, slug):
+        tag = Tag.objects.get(slug__iexact=slug)
+        return render(request, 'blog/tag_delete_form.html', context={'tag': tag})
+
+    def post(self, request, slug):
+        tag = Tag.objects.get(slug__iexact=slug)
+        tag.delete()
+        return redirect(reverse('tag_list_url'))
