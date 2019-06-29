@@ -1,0 +1,17 @@
+{% extends 'archive/archive_main.html' %}
+
+{% block title %}
+    {{ block.super }} - чертёж {{ plan.name|title }}
+{% endblock %}
+
+{% block content %}
+
+
+    <h3>{{ plan.name }}</h3>
+    <p>{{ plan.description }}</p>
+    {% for image in plan.images.all %}
+
+        <!--<p>{{ image.image }}</p>-->
+        <img src="/media/{{ image.image }}" alt="" class="img-thumbnail" style="width: 300px">
+    {% endfor %}
+{% endblock %}

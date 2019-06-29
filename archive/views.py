@@ -1,7 +1,28 @@
 from django.shortcuts import render
+from django.views import View
+from .models import Plan
+from .forms import *
 from django.http import HttpResponse
 
 
 def hello(request):
     return HttpResponse('<h1>Hello from archive</h1>')
 
+
+class PlanDetail(View):
+    def get(self, request, slug):
+        plan = Plan.objects.get(slug__iexact=slug)
+        return render(request, 'archive/plan_detail.html', context={'plan': plan})
+
+
+class ImageUpload(View):
+    def get(self, request):
+        form = PlanImageForm
+        return render(request, 'archive/image_upload_form.html', context={'form': form})
+
+    def post(self, request):
+        bound_form = PlanImageForm(request.POST, request.FILES)
+        if bound_form.is_valid():
+            bound_form.save()
+            return HttpResponse('<h1>OK</h1>')
+        return render(request, 'archive/image_upload_form.html', context={'form': bound_form})
