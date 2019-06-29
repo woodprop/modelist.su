@@ -19,13 +19,12 @@ class Post(models.Model):
         return reverse('post_detail_url', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
-        if (not self.id) and (self.slug == ''):
+        if not self.id:
             self.slug = generate_slug(self.title)
         super().save(*args, **kwargs)
 
-
     def __str__(self):
-        return '{}'.format(self.title)
+        return self.title
 
 
 class Tag(models.Model):
@@ -35,6 +34,10 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return reverse('tag_detail_url', kwargs={'slug': self.slug})
 
+    def save(self, *args, **kwargs):
+        self.slug = generate_slug(self.title)
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return '{}'.format(self.title)
+        return self.title
 
