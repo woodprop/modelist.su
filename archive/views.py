@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views import View
-from .models import Plan
+from .models import *
 from .forms import *
 from django.http import HttpResponse
 
@@ -30,8 +31,8 @@ class PlanUpload(View):
         bound_form = PlanForm(request.POST, request.FILES)
 
         if bound_form.is_valid():
-            bound_form.save()
-            return HttpResponse('<h1>OK</h1>')
+            new_plan = bound_form.save()
+            return redirect(new_plan)
         return render(request, 'archive/plan_upload_form.html', context={'form': bound_form})
 
 
