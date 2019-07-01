@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from uuslug import uuslug
 
 
 class Plan(models.Model):
@@ -7,16 +8,13 @@ class Plan(models.Model):
     slug = models.SlugField(max_length=150, unique=True)
     description = models.TextField(blank=True, db_index=True)
     author = models.CharField(max_length=50, blank=True)
+    image = models.ImageField(upload_to='plans/images')
+    file = models.FileField(upload_to='plans/files')
 
     def get_absolute_url(self):
         return reverse('plan_detail_url', kwargs={'slug': self.slug})
 
+    def save(self, *args, **kwargs):
+        self.slug = uuslug(self.name, instance=self, start_no=2)
+        super(Plan, self).save(*args, **kwargs)
 
-class PlanImage(models.Model):
-    subject = models.ForeignKey(Plan, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='plans/images')
-
-
-class PlanFile(models.Model):
-    subject = models.ForeignKey(Plan, related_name='file', on_delete=models.CASCADE)
-    file = models.FileField(upload_to='plans/files')

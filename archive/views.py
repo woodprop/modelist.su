@@ -21,14 +21,18 @@ class PlanDetail(View):
         return render(request, 'archive/plan_detail.html', context={'plan': plan})
 
 
-class ImageUpload(View):
+class PlanUpload(View):
     def get(self, request):
-        form = PlanImageForm
-        return render(request, 'archive/image_upload_form.html', context={'form': form})
+        form = PlanForm
+        return render(request, 'archive/plan_upload_form.html', context={'form': form})
 
     def post(self, request):
-        bound_form = PlanImageForm(request.POST, request.FILES)
+        bound_form = PlanForm(request.POST, request.FILES)
+
         if bound_form.is_valid():
             bound_form.save()
             return HttpResponse('<h1>OK</h1>')
-        return render(request, 'archive/image_upload_form.html', context={'form': bound_form})
+        return render(request, 'archive/plan_upload_form.html', context={'form': bound_form})
+
+
+

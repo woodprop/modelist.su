@@ -1,14 +1,8 @@
 from django import forms
-from .models import PlanImage, PlanFile
+from .models import Plan
 
 
-class PlanImageForm(forms.ModelForm):
+class PlanForm(forms.ModelForm):
     class Meta:
-        model = PlanImage
-        fields = ['image', 'subject']
-
-
-class PlanFileForm(forms.ModelForm):
-    class Meta:
-        model = PlanFile
-        fields = ['file', 'subject']
+        model = Plan
+        fields = ['name', 'description', 'image', 'file']

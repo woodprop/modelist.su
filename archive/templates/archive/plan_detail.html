@@ -9,7 +9,6 @@
 
     <h3>{{ plan.name }}</h3>
     <p>{{ plan.description }}</p>
-    {% for image in plan.images.all %}
-        <img src="/media/{{ image.image }}" alt="" class="img-thumbnail" style="width: 300px">
-    {% endfor %}
+    <img src="/media/{{ plan.image }}" alt="" class="img-thumbnail" style="width: 300px">
+    <a href="/media/{{ plan.file }}">Скачать</a>
 {% endblock %}
