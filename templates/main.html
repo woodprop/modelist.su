@@ -27,6 +27,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'tag_list_url' %}"># Тэги</a>
       </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'plans_list_url' %}">Чертежи</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
@@ -49,7 +52,7 @@
   </div>
 </nav>
 
-<div class="col-lg-8 offset-lg-2 mt-5">
+<div class="col-lg-7 offset-lg-2 mt-5">
 
     {% block content %}
     {% endblock %}

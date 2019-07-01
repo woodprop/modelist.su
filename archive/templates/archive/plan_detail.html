@@ -6,9 +6,17 @@
 
 {% block content %}
 
+    <div class="row">
+        <div class="col-lg-6 shadow">
+            <h2>{{ plan.name|title }}</h2>
+            <p>{{ plan.description }}</p>
+        </div>
 
-    <h3>{{ plan.name }}</h3>
-    <p>{{ plan.description }}</p>
-    <img src="/media/{{ plan.image }}" alt="" class="img-thumbnail" style="width: 300px">
-    <a href="/media/{{ plan.file }}">Скачать</a>
+        <div class="col-lg-6">
+            <img src="/media/{{ plan.image }}" alt="" class="img-fluid rounded-lg shadow mb-3">
+            <a href="/media/{{ plan.file }}" class="btn btn-outline-success btn-lg btn-block">Скачать</a>
+
+        </div>
+    </div>
+
 {% endblock %}

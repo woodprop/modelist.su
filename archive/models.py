@@ -18,3 +18,6 @@ class Plan(models.Model):
         self.slug = uuslug(self.name, instance=self, start_no=2)
         super(Plan, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+

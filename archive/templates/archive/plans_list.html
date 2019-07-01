@@ -7,17 +7,16 @@
 {% block content %}
     <h2>Чертежи</h2>
 
-    {% for plan in plans %}
-        <div class="card mb-3">
-            <div class="card-header">
-                id #{{ plan.id }}
+    {% for plan in plans reversed %}
+        <div class="row no-gutters bg-light position-relative mb-3">
+            <div class="col-md-6 mb-md-0 p-md-4">
+                <img src="/media/{{ plan.image }}" class="w-100" alt="...">
             </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ plan.name }}</h5>
-                <p class="card-text">{{ plan.description|truncatewords:15 }}</p>
-                <a href="{{ plan.get_absolute_url }}" class="btn btn-info">Подробнее -></a>
+            <div class="col-md-6 position-static p-4 pl-md-0">
+                <h5 class="mt-0">{{ plan.name|title }}</h5>
+                <p>{{ plan.description|truncatewords:30 }}</p>
+                <a href="{{ plan.get_absolute_url }}" class="stretched-link">Подробнее...</a>
             </div>
-
         </div>
     {% endfor %}
 {% endblock %}
