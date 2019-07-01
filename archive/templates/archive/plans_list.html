@@ -1,0 +1,23 @@
+{% extends 'archive/archive_main.html' %}
+
+{% block title %}
+    {{ block.super }} - Чертежи
+{% endblock %}
+
+{% block content %}
+    <h2>Чертежи</h2>
+
+    {% for plan in plans %}
+        <div class="card mb-3">
+            <div class="card-header">
+                id #{{ plan.id }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ plan.name }}</h5>
+                <p class="card-text">{{ plan.description|truncatewords:15 }}</p>
+                <a href="{{ plan.get_absolute_url }}" class="btn btn-info">Подробнее -></a>
+            </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}

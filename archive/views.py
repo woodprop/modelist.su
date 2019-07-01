@@ -9,6 +9,12 @@ def hello(request):
     return HttpResponse('<h1>Hello from archive</h1>')
 
 
+class PlansList(View):
+    def get(self, request):
+        plans = Plan.objects.all()
+        return render(request, 'archive/plans_list.html', context={'plans': plans})
+
+
 class PlanDetail(View):
     def get(self, request, slug):
         plan = Plan.objects.get(slug__iexact=slug)
