@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.core.exceptions import PermissionDenied
 from django.views import View
 from .models import *
 from .forms import *
@@ -24,6 +25,8 @@ class PlanDetail(View):
 
 class PlanUpload(View):
     def get(self, request):
+        if not request.user.is_authenticated:
+            raise PermissionDenied()
         form = PlanForm
         return render(request, 'archive/plan_upload_form.html', context={'form': form})
 

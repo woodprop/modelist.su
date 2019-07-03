@@ -10,6 +10,7 @@ class Plan(models.Model):
     author = models.CharField(max_length=50, blank=True)
     image = models.ImageField(upload_to='plans/images')
     file = models.FileField(upload_to='plans/files')
+    date_pub = models.DateField(auto_now_add=True)
 
     def get_absolute_url(self):
         return reverse('plan_detail_url', kwargs={'slug': self.slug})
