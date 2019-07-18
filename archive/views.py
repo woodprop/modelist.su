@@ -2,10 +2,10 @@ import os
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
 from django.views import View
 from .models import *
 from .forms import *
-from django.http import HttpResponse
 
 
 def get_file_size(file):
@@ -17,7 +17,9 @@ def get_file_size(file):
 class PlansList(View):
     def get(self, request):
         plans = Plan.objects.all()
-        return render(request, 'archive/plans_list.html', context={'plans': plans})
+        paginator = Paginator(plans, 1)
+        page = paginator.get_page(request.GET.get('page', 1))
+        return render(request, 'archive/plans_list.html', context={'plans': page})
 
 
 class PlanDetail(View):

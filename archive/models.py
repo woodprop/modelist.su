@@ -23,6 +23,9 @@ class Plan(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-date_pub']
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, db_index=True)
