@@ -43,4 +43,10 @@ class PlanUpload(View):
         return render(request, 'archive/plan_upload_form.html', context={'form': bound_form})
 
 
+class TagDetail(View):
+    def get(self, request, slug):
+        tag = Tag.objects.get(slug__iexact=slug)
+        return render(request, 'archive/tag_detail.html', context={'tag': tag})
+
+
 
