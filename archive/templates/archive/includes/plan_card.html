@@ -7,18 +7,12 @@
         <p>{{ plan.description|truncatewords:30 }}</p>
         <a href="{{ plan.get_absolute_url }}" class="stretched-link">Подробнее...</a>
     </div>
+</div>
 
-
-
-
-    <nav>
+    <nav class="position-static">
         <ol class="breadcrumb">
             {% for tag in plan.tags.all %}
-            <li class="breadcrumb-item"><a href="#">{{ tag.name }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
             {% endfor %}
         </ol>
     </nav>
-</div>
-    <div class="card-footer">
-        <a href="#">{{ tag.name }}</a>
-    </div>

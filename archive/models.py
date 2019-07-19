@@ -36,6 +36,9 @@ class Tag(models.Model):
         super(Tag, self).save(*args, **kwargs)
         # TODO Или удалить или реализовать форму добавления
 
+    def get_absolute_url(self):
+        return reverse('tag_detail_url', kwargs={'slug': self.slug})
+
     def __str__(self):
         return self.name
 
