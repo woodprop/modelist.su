@@ -1,6 +1,6 @@
 Django==2.2.3
 django-uuslug==1.1.8
-Pillow==6.0.0
+Pillow==9.0.0
 python-slugify==3.0.2
 pytz==2018.9
 sqlparse==0.3.0
